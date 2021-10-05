@@ -11,15 +11,15 @@ import './App.scss';
 function App() {
   return (
     <div className="App">
-      <Navbar />
-      <header className="App-header">
         <Router>
-          <Switch>
-            <Route path="/" component={Home} exact/>
-            <Route path="/dashboard/:tabid" component={Dashboard} exact />
-          </Switch>
+          <Navbar />
+          <header className="App-header">
+            <Switch>
+              <Route path="/" component={Home} exact/>
+              <Route path="/dashboard/:tabid" component={Dashboard} exact />
+            </Switch>
+          </header>
         </Router>
-      </header>
     </div>
   );
 }

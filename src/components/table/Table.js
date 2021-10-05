@@ -13,8 +13,8 @@ const columns = [
     title: 'Date',
     dataIndex: 'date',
     key: 'date',
+    sorter: (a, b) => 2,
 
-    filters:[{}]
   },
 
   {
@@ -27,19 +27,15 @@ const columns = [
     title: 'Types',
     key: 'tags',
     dataIndex: 'tags',
-    render: tags => (
+    filters:[
+      {text: "flow", value: "flow"},
+      {text: "pressure", value: "pressure"}
+    ],
+    render: tag => (
       <span>
-        {tags.map(tag => {
-          let color = tag.length > 5 ? 'geekblue' : 'green';
-          if (tag === 'loser') {
-            color = 'volcano';
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
+        <Tag color={tag.length > 5 ? 'geekblue' : 'green'} key={tag}>
+          {tag.toUpperCase()}
+        </Tag>
       </span>
     ),
   },
@@ -48,8 +44,14 @@ const columns = [
     title: 'Sensor',
     dataIndex: 'sensor',
     key: 'sensor',
-
-    filters:[{}]
+    filters:[
+      { text: 1, value: 1},
+      { text: 2, value: 2},
+      { text: 3, value: 3},
+      { text: 4, value: 4},
+      { text: 5, value: 5},
+      { text: 5, value: 5}
+    ]
   },
 ];
 
@@ -58,70 +60,139 @@ const data = [
     id: 'dg45ff',
     value: 10.20,
     date: '02/12/2000',
-    tags: ['pressure'],
+    tags: 'pressure',
     sensor: 1,
   },
   {
     id: 'dg45ff',
     value: 42.55,
     date: '02/12/2000',
-    tags: ['flow'],
+    tags: 'flow',
     sensor: 2,
   },
   {
     id: 'dg45ff',
     value: 10.60,
     date: '02/12/2000',
-    tags: ['pressure'],
+    tags: 'pressure',
     sensor: 3,
   },
   {
     id: 'dg45ff',
     value: 10.20,
     date: '02/12/2000',
-    tags: ['flow'],
+    tags: 'flow',
     sensor: 4,
   },
   {
     id: 'dg45ff',
     value: 10.20,
     date: '02/12/2000',
-    tags: ['flow'],
+    tags: 'flow',
     sensor: 5,
   },
   {
     id: 'dg45ff',
     value: 10.20,
     date: '02/12/2000',
-    tags: ['flow'],
+    tags: 'flow',
     sensor: 6,
   },
   {
     id: 'dg45ff',
     value: 10.20,
     date: '02/12/2000',
-    tags: ['flow'],
+    tags: 'flow',
     sensor: 7,
   },
   {
     id: 'dg45ff',
     value: 10.20,
     date: '02/12/2000',
-    tags: ['pressure'],
+    tags: 'pressure',
     sensor: 8,
   },
   {
     id: 'dg45ff',
     value: 10.20,
     date: '02/12/2000',
-    tags: ['flow'],
+    tags: 'flow',
     sensor: 9,
   },
   {
     id: 'dg45ff',
     value: 10.20,
     date: '02/12/2000',
-    tags: ['pressure'],
+    tags: 'pressure',
+    sensor: 10,
+  },  {
+    id: 'dg45ff',
+    value: 10.20,
+    date: '02/12/2000',
+    tags: 'pressure',
+    sensor: 1,
+  },
+  {
+    id: 'dg45ff',
+    value: 42.55,
+    date: '02/12/2000',
+    tags: 'flow',
+    sensor: 2,
+  },
+  {
+    id: 'dg45ff',
+    value: 10.60,
+    date: '02/12/2000',
+    tags: 'pressure',
+    sensor: 3,
+  },
+  {
+    id: 'dg45ff',
+    value: 10.20,
+    date: '02/12/2000',
+    tags: 'flow',
+    sensor: 4,
+  },
+  {
+    id: 'dg45ff',
+    value: 10.20,
+    date: '02/12/2000',
+    tags: 'flow',
+    sensor: 5,
+  },
+  {
+    id: 'dg45ff',
+    value: 10.20,
+    date: '02/12/2000',
+    tags: 'flow',
+    sensor: 6,
+  },
+  {
+    id: 'dg45ff',
+    value: 10.20,
+    date: '02/12/2000',
+    tags: 'flow',
+    sensor: 7,
+  },
+  {
+    id: 'dg45ff',
+    value: 10.20,
+    date: '02/12/2000',
+    tags: 'pressure',
+    sensor: 8,
+  },
+  {
+    id: 'dg45ff',
+    value: 10.20,
+    date: '02/12/2000',
+    tags: 'flow',
+    sensor: 9,
+  },
+  {
+    id: 'dg45ff',
+    value: 10.20,
+    date: '02/12/2000',
+    tags: 'pressure',
     sensor: 10,
   },
   
@@ -153,13 +224,11 @@ export default class Demo extends React.Component {
         <Table
           columns={columns}
           pagination={{
-            total: 10,
-            Select,
-            // default
+            defaultCurrent: 1,
+            total: 20
          }}
           dataSource={data}
         />
-        {/* <Pagination defaultCurrent={1} total={50}/> */}
       </div>
     );
   }

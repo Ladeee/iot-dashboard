@@ -6,10 +6,21 @@ export default function Statistics(){
 return(
   <div className="site-statistic-demo-card">
     <Row className="rows" gutter={16}>
-      <Col span={3}>
+      <Col span={5}>
         <Card className="statistic-demo-card">
           <Statistic
-            title="Active"
+            title="Average Flow Rate"
+            value={11.28}
+            precision={2}
+            valueStyle={{ color: '#3f8600' }}
+            suffix="%"
+          />
+        </Card>
+      </Col>
+      <Col span={5}>
+      <Card className="statistic-demo-card">
+          <Statistic
+            title="Average Pressure"
             value={11.28}
             precision={2}
             valueStyle={{ color: '#3f8600' }}
@@ -18,10 +29,10 @@ return(
           />
         </Card>
       </Col>
-      <Col span={3}>
+      <Col span={5}>
       <Card className="statistic-demo-card">
           <Statistic
-            title="Active"
+            title="Maximum Flow Rate"
             value={11.28}
             precision={2}
             valueStyle={{ color: '#3f8600' }}
@@ -30,22 +41,10 @@ return(
           />
         </Card>
       </Col>
-      <Col span={3}>
+      <Col span={5}>
       <Card className="statistic-demo-card">
           <Statistic
-            title="Active"
-            value={11.28}
-            precision={2}
-            valueStyle={{ color: '#3f8600' }}
-            prefix={<ArrowUpOutlined />}
-            suffix="%"
-          />
-        </Card>
-      </Col>
-      <Col span={3}>
-      <Card className="statistic-demo-card">
-          <Statistic
-            title="Active"
+            title="Minimum Flow Rate"
             value={11.28}
             precision={2}
             valueStyle={{ color: '#3f8600' }}

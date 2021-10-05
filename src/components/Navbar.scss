@@ -1,5 +1,8 @@
 nav {
-    padding: 10px 50px;
+    padding: 0px 50px;
+    @media (max-width: 500px){
+        padding: 10px 20px;
+    }
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -45,7 +48,7 @@ ul{
     margin-top: 28px;
     font-weight: 700;
     font-size: 30px;
-    color: #1890ff;
+    color: #1d39c4;
 }
 
 .left_navbar{

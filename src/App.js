@@ -16,7 +16,7 @@ function App() {
           <header className="App-header">
             <Switch>
               <Route path="/" component={Home} exact/>
-              <Route path="/dashboard/:tabid" component={Dashboard} exact />
+              <Route path="/dashboard/:labid" component={Dashboard} exact />
             </Switch>
           </header>
         </Router>

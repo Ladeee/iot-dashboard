@@ -1,39 +1,52 @@
-import React from 'react'
-import { Table, Tag, Radio, Select } from 'antd';
-import 'antd/dist/antd.css'; 
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import randomColor from "randomcolor";
+import { Table, Tag, Radio } from "antd";
+import "antd/dist/antd.css";
+import { postReq } from "../../api";
+
+const DEFAULT_PAGINATION = {
+  page: 1,
+  limit: 10
+}
 
 const columns = [
   {
-    title: 'Id',
-    dataIndex: 'id',
-    key: 'id',
-  },
-
-  {
-    title: 'Date',
-    dataIndex: 'date',
-    key: 'date',
-    sorter: (a, b) => 2,
-
-  },
-
-  {
-    title: 'Value',
-    dataIndex: 'value',
-    key: 'value',
-  },
-  
-  {
-    title: 'Types',
-    key: 'tags',
-    dataIndex: 'tags',
-    filters:[
-      {text: "flow", value: "flow"},
-      {text: "pressure", value: "pressure"}
-    ],
-    render: tag => (
+    title: "Id",
+    dataIndex: "_id",
+    key: "_id",
+    render: (tag) => (
       <span>
-        <Tag color={tag.length > 5 ? 'geekblue' : 'green'} key={tag}>
+        {tag.slice(0, 7)}...
+      </span>
+    ),
+  },
+
+  {
+    title: "Date",
+    dataIndex: "date",
+    key: "date",
+    sorter: true,
+  },
+
+  {
+    title: "Value",
+    dataIndex: "value",
+    key: "value",
+    sorter: true,
+  },
+
+  {
+    title: "Type",
+    key: "type",
+    dataIndex: "type",
+    filters: [
+      { text: "flow", value: "flow" },
+      { text: "pressure", value: "pressure" },
+    ],
+    render: (tag) => (
+      <span>
+        <Tag color={tag.length > 5 ? "geekblue" : "green"} key={tag}>
           {tag.toUpperCase()}
         </Tag>
       </span>
@@ -41,195 +54,117 @@ const columns = [
   },
 
   {
-    title: 'Sensor',
-    dataIndex: 'sensor',
-    key: 'sensor',
-    filters:[
-      { text: 1, value: 1},
-      { text: 2, value: 2},
-      { text: 3, value: 3},
-      { text: 4, value: 4},
-      { text: 5, value: 5},
-      { text: 5, value: 5}
-    ]
+    title: "Sensor",
+    dataIndex: "sensor",
+    key: "sensor",
+    filters: [
+      { text: 1, value: 1 },
+      { text: 2, value: 2 },
+      { text: 3, value: 3 },
+      { text: 4, value: 4 },
+      { text: 5, value: 5 },
+      { text: 6, value: 6 },
+    ],
+    render: (type) => (
+      <span>
+        <Tag
+          color={randomColor({ seed: type})}
+          key={type}
+          style={{
+            borderRadius: "50%",
+            width: "25px",
+            height: "25px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {type}
+        </Tag>
+      </span>
+    ),
   },
 ];
 
-const data = [
-  {
-    id: 'dg45ff',
-    value: 10.20,
-    date: '02/12/2000',
-    tags: 'pressure',
-    sensor: 1,
-  },
-  {
-    id: 'dg45ff',
-    value: 42.55,
-    date: '02/12/2000',
-    tags: 'flow',
-    sensor: 2,
-  },
-  {
-    id: 'dg45ff',
-    value: 10.60,
-    date: '02/12/2000',
-    tags: 'pressure',
-    sensor: 3,
-  },
-  {
-    id: 'dg45ff',
-    value: 10.20,
-    date: '02/12/2000',
-    tags: 'flow',
-    sensor: 4,
-  },
-  {
-    id: 'dg45ff',
-    value: 10.20,
-    date: '02/12/2000',
-    tags: 'flow',
-    sensor: 5,
-  },
-  {
-    id: 'dg45ff',
-    value: 10.20,
-    date: '02/12/2000',
-    tags: 'flow',
-    sensor: 6,
-  },
-  {
-    id: 'dg45ff',
-    value: 10.20,
-    date: '02/12/2000',
-    tags: 'flow',
-    sensor: 7,
-  },
-  {
-    id: 'dg45ff',
-    value: 10.20,
-    date: '02/12/2000',
-    tags: 'pressure',
-    sensor: 8,
-  },
-  {
-    id: 'dg45ff',
-    value: 10.20,
-    date: '02/12/2000',
-    tags: 'flow',
-    sensor: 9,
-  },
-  {
-    id: 'dg45ff',
-    value: 10.20,
-    date: '02/12/2000',
-    tags: 'pressure',
-    sensor: 10,
-  },  {
-    id: 'dg45ff',
-    value: 10.20,
-    date: '02/12/2000',
-    tags: 'pressure',
-    sensor: 1,
-  },
-  {
-    id: 'dg45ff',
-    value: 42.55,
-    date: '02/12/2000',
-    tags: 'flow',
-    sensor: 2,
-  },
-  {
-    id: 'dg45ff',
-    value: 10.60,
-    date: '02/12/2000',
-    tags: 'pressure',
-    sensor: 3,
-  },
-  {
-    id: 'dg45ff',
-    value: 10.20,
-    date: '02/12/2000',
-    tags: 'flow',
-    sensor: 4,
-  },
-  {
-    id: 'dg45ff',
-    value: 10.20,
-    date: '02/12/2000',
-    tags: 'flow',
-    sensor: 5,
-  },
-  {
-    id: 'dg45ff',
-    value: 10.20,
-    date: '02/12/2000',
-    tags: 'flow',
-    sensor: 6,
-  },
-  {
-    id: 'dg45ff',
-    value: 10.20,
-    date: '02/12/2000',
-    tags: 'flow',
-    sensor: 7,
-  },
-  {
-    id: 'dg45ff',
-    value: 10.20,
-    date: '02/12/2000',
-    tags: 'pressure',
-    sensor: 8,
-  },
-  {
-    id: 'dg45ff',
-    value: 10.20,
-    date: '02/12/2000',
-    tags: 'flow',
-    sensor: 9,
-  },
-  {
-    id: 'dg45ff',
-    value: 10.20,
-    date: '02/12/2000',
-    tags: 'pressure',
-    sensor: 10,
-  },
+export default function Demo() {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const { labid } = useParams();
+
+  const tablesParamsOnChange = (pagination, filters, sorters) => {
+    // loop through the filters to construct a filter array
+    let finalFilter = {};
+    let sorter = "";
+    // generate a filter object based on the filters entered
+    for (let [key, value] of Object.entries(filters)) {
+      if (value && value.length) {
+        finalFilter[key] = { $in: [...value] };
+      }
+    }
+    // generate the sorter
+    const { columnKey, order } = sorters;
+    if (columnKey && order) {
+      sorter = order === "ascend" ? `${columnKey}` : `-${columnKey}`;
+    }
+    // generate pagination params
+    const { current: page, pageSize: limit } = pagination;
   
-];
-
-export default class Demo extends React.Component {
-  state = {
-    top: 'topLeft',
-    bottom: 'bottomRight',
+    // fetch the required data
+    setLoading(true);
+    postReq('/filter', {
+      page: page,
+      limit: limit,
+      filter: {
+        lab: parseInt(labid),
+        ...finalFilter
+      }
+    })
+    .then(({data:res}) => {
+      console.log({res});
+      setData(res.docs);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+    .finally(() => {
+      setLoading(false)
+    })
   };
 
-  render() {
-    return (
-      <div>
-        <div>
-          <Radio.Group
-            style={{ marginBottom: 10 }}
-            onChange={e => {
-              this.setState({ top: e.target.value });
-            }}
-          />
-        </div>
-        <Radio.Group
-          style={{ marginBottom: 10 }}
-          onChange={e => {
-            this.setState({ bottom: e.target.value });
-          }}
-        />
-        <Table
-          columns={columns}
-          pagination={{
-            defaultCurrent: 1,
-            total: 20
-         }}
-          dataSource={data}
-        />
-      </div>
-    );
-  }
+
+  useEffect(() => {
+    setLoading(true);
+    postReq('/filter', {
+      page: DEFAULT_PAGINATION.page,
+      limit: DEFAULT_PAGINATION.limit,
+      filter: {
+        lab: parseInt(labid)
+      }
+    })
+    .then(({data:res}) => {
+      console.log({res});
+      setData(res.docs);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+    .finally(() => {
+      setLoading(false)
+    })
+  }, []);
+
+  return (
+    <div>
+      <Table
+        columns={columns}
+        pagination={{
+          defaultCurrent: 1,
+          total: 10,
+        }}
+        onChange={tablesParamsOnChange}
+        dataSource={data}
+        loading={loading}
+      />
+    </div>
+  );
 }

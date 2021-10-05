@@ -20,6 +20,10 @@ const INITIAL_DATA = [
     name: "Lab 4",
     title: "Check out the details of your lab here."
   },
+  {
+    name: "Lab 5",
+    title: "Check out the details of your lab here."
+  },
 ];
 
 export default class InfiniteListExample extends React.Component {

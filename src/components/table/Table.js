@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import moment  from 'moment';
 import { useParams } from "react-router-dom";
 import randomColor from "randomcolor";
 import { Table, Tag, Radio } from "antd";
@@ -7,8 +8,10 @@ import { postReq } from "../../api";
 
 const DEFAULT_PAGINATION = {
   page: 1,
-  limit: 10
-}
+  limit: 5
+};
+
+const DATE_FORMAT = "YYYY-MM-DD HH:mm:ss"
 
 const columns = [
   {
@@ -27,13 +30,17 @@ const columns = [
     dataIndex: "date",
     key: "date",
     sorter: true,
+    render: (datetime) => (
+      <span>
+        {moment(datetime).format(DATE_FORMAT)}
+      </span>
+    ),
   },
 
   {
     title: "Value",
     dataIndex: "value",
     key: "value",
-    sorter: true,
   },
 
   {
@@ -68,7 +75,7 @@ const columns = [
     render: (type) => (
       <span>
         <Tag
-          color={randomColor({ seed: type})}
+          color={randomColor({ seed: `${type}-1235`})}
           key={type}
           style={{
             borderRadius: "50%",
@@ -89,6 +96,7 @@ const columns = [
 export default function Demo() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [total, setTotal] = useState(0);
   const { labid } = useParams();
 
   const tablesParamsOnChange = (pagination, filters, sorters) => {
@@ -117,11 +125,12 @@ export default function Demo() {
       filter: {
         lab: parseInt(labid),
         ...finalFilter
-      }
+      },
+      sorter
     })
     .then(({data:res}) => {
-      console.log({res});
       setData(res.docs);
+      setTotal(res.totalDocs);
     })
     .catch(err => {
       console.log(err);
@@ -144,6 +153,7 @@ export default function Demo() {
     .then(({data:res}) => {
       console.log({res});
       setData(res.docs);
+      setTotal(res.totalDocs);
     })
     .catch(err => {
       console.log(err);
@@ -159,7 +169,7 @@ export default function Demo() {
         columns={columns}
         pagination={{
           defaultCurrent: 1,
-          total: 10,
+          total: total,
         }}
         onChange={tablesParamsOnChange}
         dataSource={data}

@@ -8,7 +8,7 @@ import { postReq } from "../../api";
 
 const DEFAULT_PAGINATION = {
   page: 1,
-  limit: 5
+  limit: 10
 };
 
 const DATE_FORMAT = "YYYY-MM-DD HH:mm:ss"

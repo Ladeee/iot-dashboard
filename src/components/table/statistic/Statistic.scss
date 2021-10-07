@@ -12,11 +12,6 @@
 }
 
 @media (max-width: '578px'){
-    .rows{
-        display: flex;
-        flex-direction: column;
-        height: 400px;
-    }
 
     #root > div > header > div > div.site-statistic-demo-card > div > div:nth-child(3) > div > div > div > div.ant-statistic-content,
     #root > div > header > div > div.site-statistic-demo-card > div > div:nth-child(2) > div > div > div > div.ant-statistic-content,
